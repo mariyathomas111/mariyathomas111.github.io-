@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JavaScript - read JSON from URL</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="mypanel"></div>
+
+    <script>
+    $.getJSON('https://api.github.com/users/unipartdigital', function(data) {
+        if(data.length !=0) {
+		
+			var text =  ` Name: ${data.name}<br>
+						Type: ${data.type}<br>
+						Login: ${data.login}<br>
+                    Id: ${data.id}<br>
+                    Node: ${data.node_id}<br>	
+					Location: ${data.location}`
+                    				
+                    
+        
+        $(".mypanel").html(text);
+		}
+		else{ alert("No data found");}
+    })
+	.fail(function() { alert("error"); });
+    </script>
+    
+</body>
+</html>
