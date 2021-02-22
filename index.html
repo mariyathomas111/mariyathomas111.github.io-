@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+div {
+  vertical-align:top;
+  font-family: verdana;
+  font-size: 12px;  
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  color: #10375c;
+  height:200px;
+}
+
+table {
+vertical-align:top;
+border:1px solid gray;
+}
+  
+p { 
+ text-align: center;
+  font-family: verdana;
+  font-size: 19px;
+}
+</style>
+</head>
 <body>
 
-<p><div style="font weight:bold;font-size:20px" ><u>Unipartdigital Details</u></div></p>
+<p>Unipartdigital Details</p>
 
-<p id="demo"></p>
+<div id="demo"></div>
 
 <script>
 	var x; 
-	var strHtml = "<table style='border:1 px solid gray'>";
+	
 	async function fetchUser() {
 	
 		const response = await fetch('https://api.github.com/users/unipartdigital');;
@@ -18,12 +46,14 @@
 			var count = Object. keys(user).length;
 			 if(count !=0) {
 					//console.log(count);
+					var strHtml = "<table>";
 					for (x in user) {
 						if(user[x]){
 							strHtml += "<tr> <td>" + x +": </td> <td> " + user[x] +"</td><br/></tr>";
 						}
-						strHtml += "</table>";
+						
 						}
+						strHtml += "</table>";
 					document.getElementById("demo").innerHTML = strHtml;
 				}
 				else{ alert("No data found");}
