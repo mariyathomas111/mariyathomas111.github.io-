@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<title>JavaScript - read JSON from URL</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-</head>
-
+<html>
 <body>
-<div style="font weight:bold;font-size:20px" ><u>Unipartdigital Details</u></div>
-    <div style="padding-top:20px;text-align:left"  class="mypanel"></div>
 
-    <script>
-    $.getJSON('https://api.github.com/users/unipartdigital', function(data) {
-        if(data.length !=0) {
-		
-			var text =  ` Name: ${data.name}<br>
-						Type: ${data.type}<br>
-						Login: ${data.login}<br>
-						Id: ${data.id}<br>
-						Node: ${data.node_id}<br>	
-						Location: ${data.location}`                   				
-                    
-        
-			$(".mypanel").html(text);
+<p><div style="font weight:bold;font-size:20px" ><u>Unipartdigital Details</u></div></p>
+
+<p id="demo"></p>
+
+<script>
+	var x; 
+	var strHtml = "<table style='border:1 px solid gray'>";
+	async function fetchUser() {
+	
+		const response = await fetch('https://api.github.com/users/unipartdigital');;
+
+		if (response.status === 200) {
+			const user = await response.json();
+			var count = Object. keys(user).length;
+			 if(count !=0) {
+					//console.log(count);
+					for (x in user) {
+						if(user[x]){
+							strHtml += "<tr> <td>" + x +": </td> <td> " + user[x] +"</td><br/></tr>";
+						}
+						strHtml += "</table>";
+						}
+					document.getElementById("demo").innerHTML = strHtml;
+				}
+				else{ alert("No data found");}
+
 		}
-		else{ alert("No data found");}
-    })
-	.fail(function() { alert("error"); });
-    </script>
-    
+		else {
+		throw new Error(`HTTP error! status: ${response.status}`);
+		}
+	}
+	fetchUser();
+
+</script>
+
 </body>
 </html>
